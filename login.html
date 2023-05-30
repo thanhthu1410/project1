@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    .container-all {
+        width: 80%;
+        display: flex;
+        height: auto;
+        margin: 150px auto;
+        justify-content: space-between;
+        font-family: sans-serif
+    }
+
+    .container-left {
+        width: 45%;
+        height: 80%;
+
+    }
+
+    .container-right {
+        width: 45%;
+        height: 80%;
+    }
+
+    h3 {
+        padding: 15px 0px;
+    }
+
+    h5 {
+        padding: 10px 0px;
+    }
+
+    p {
+        font-size: 12px;
+        line-height: 1.4;
+    }
+
+    .container-left input {
+        margin: 5px 0px;
+        width: 450px;
+        height: 25px;
+        border: none;
+        outline: none;
+        border-bottom: 1px solid gray;
+        padding: 10px;
+    }
+
+    button {
+        margin-top: 10px;
+        width: 450px;
+        padding: 5px;
+        background-color: white;
+        color: black;
+
+    }
+
+    .validexEmail {
+        display: none;
+    }
+
+    /* function validate */
+    #snackbar {
+        visibility: hidden;
+        min-width: 250px;
+        margin-left: -125px;
+        background-color: #333;
+        color: #fff;
+        text-align: center;
+        border-radius: 2px;
+        padding: 16px;
+        position: fixed;
+        z-index: 1;
+        left: 50%;
+        bottom: 30px;
+        font-size: 17px;
+    }
+
+    #snackbar.show {
+        visibility: visible;
+        -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+        animation: fadein 0.5s, fadeout 0.5s 2.5s;
+    }
+
+    @-webkit-keyframes fadein {
+        from {
+            bottom: 0;
+            opacity: 0;
+        }
+
+        to {
+            bottom: 30px;
+            opacity: 1;
+        }
+    }
+
+    @keyframes fadein {
+        from {
+            bottom: 0;
+            opacity: 0;
+        }
+
+        to {
+            bottom: 30px;
+            opacity: 1;
+        }
+    }
+
+    @-webkit-keyframes fadeout {
+        from {
+            bottom: 30px;
+            opacity: 1;
+        }
+
+        to {
+            bottom: 0;
+            opacity: 0;
+        }
+    }
+
+    @keyframes fadeout {
+        from {
+            bottom: 30px;
+            opacity: 1;
+        }
+
+        to {
+            bottom: 0;
+            opacity: 0;
+        }
+    }
+</style>
+
+<body>
+    <!-- <div class="container">
+        <div class="header">
+            <a href="./cart.html"><img src="./image/Stussy_Logo.svg.png" alt=""></a> <br>
+            <div class="content">
+                <h3>STÜSSY & OUR LEGACY WORK SHOP VOL. 6
+                    05 / 23 / 2023 </h3>
+                <p>
+                    The partnership between Stüssy and Our Legacy continues with another installment. This collection
+                    features reinterpreted wardrobe classics made with premium upcycled fabrics presented in a muted
+                    palate and punctuated with clever uses of color. Subtle beach staples sit alongside an oversized
+                    double-breasted pinstripe blazer, co- branded mesh hats, hooded sweatshirts, striped button-down
+                    shirts, and tote bags.
+                    Stüssy & Our Legacy Work Shop's latest collection will be available in select Stüssy Chapter Stores,
+                    Dover Street Market and stussy.com on Friday, May 26th at 10am local time.</p>
+            </div>
+        </div>
+        <div class="login">
+            <div class="login-text">
+                <label for="">Email:</label> <br>
+                <input id="valueEmail" type="text" placeholder="Your Email"> <br>
+                <label for="">Password:</label> <br>
+                <input id="valuePassword" type="password" placeholder="Password"><br>
+                <button onclick="loginUser()">LOGIN</button><br>
+                <p>Bạn chưa có tài khoản <a href="./register.html">REGISTER</a> tại đây </p>
+            </div>
+        </div>
+    </div> -->
+    <div class="container-all">
+        <div class="container-left">
+            <h3>LOGIN</h3>
+            <h5>REGISTERED CUSTOMERS</h5>
+            <p>Please provide the email address and password associated with the account. If you're having trouble,
+                please use the prompt below to reset your password.</p> <br>
+            <input id="valueEmail" type="text" placeholder="EMAIL ADDRESS"> <br>
+            <p class="validexEmail">Pleas check your email</p>
+            <input id="valuePassword" type="password" placeholder="PASSWORD"> <br>
+            <button onclick="loginUser()">SIGN IN</button>
+        </div>
+        <div class="container-right">
+            <h3>REGISTER</h3>
+            <h5>NEED AN ACCOUNT?</h5>
+            <p>By creating an account with our store, you will be able to move through the checkout process faster,
+                store multiple shipping addresses, view and track your orders in your account, and more</p>
+            <button class="buttonnext">PROCEED TO REGISTER</button>
+        </div>
+    </div>
+    <div id="snackbar">Some text some message..</div>
+    <script>
+        //function validate dinh dang cua email 
+        let valueEmail = document.getElementById("valueEmail").value;
+        function isEmail(valueEmail) {
+            return /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(valueEmail);
+        }
+        // console.log(isEmail("kien@gmail.com"));
+        function myFunction(param) {
+            var x = document.getElementById("snackbar");
+            x.className = "show";
+            x.innerHTML = param;
+            setTimeout(function () { x.className = x.className.replace("show", ""); }, 3000);
+        }
+        function loginUser() {
+            let listUser = JSON.parse(localStorage.getItem("listUser")) || [];
+            let valueEmail = document.getElementById("valueEmail").value;
+            let valuePassword = document.getElementById("valuePassword").value;
+            let checkEmail = isEmail(valueEmail);
+            if (!checkEmail == false) {
+                myFunction("Please check your Email !")
+
+            }
+            let UserInfor = {
+                email: valueEmail,
+                password: valuePassword
+            }
+            for (let i = 0; i < listUser.length; i++) {
+                if (valueEmail == listUser[i].email && valuePassword == listUser[i].password) {
+                   myFunction("Logged in successfully!")
+                    localStorage.setItem("checkLogin", listUser[i].idUser)
+                    window.location.href = "index.html";
+                    return;
+                }
+
+            }
+            myFunction("Please check your Email or Password!")
+        }
+        
+
+        document.querySelector(".buttonnext").addEventListener("click", () => {
+            window.location.href = "register.html";
+        })
+    </script>
+</body>
+
+</html>
